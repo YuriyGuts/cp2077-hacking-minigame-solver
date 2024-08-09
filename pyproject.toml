@@ -1,0 +1,60 @@
+[tool.mypy]
+disallow_untyped_defs = true
+disable_error_code = ["import-untyped"]
+exclude = [
+    "tests/.*",
+    "\\.venv/.*",
+]
+
+[tool.ruff]
+line-length = 100
+
+[tool.ruff.lint]
+select = [
+    "E",     # pyflakes
+    "F",     # pycodestyle
+    "I",     # isort
+    "N",     # pep8-naming
+    "D",     # pydocstyle
+    "PL",    # pylint
+    "UP",    # pyupgrade
+    "INP",   # check missing __init__.py
+    "B006",  # mutable-argument-default
+]
+extend-ignore = [
+    # D100-D106: Ignore undocumented module, class, method, function, inner class.
+    "D100", "D101", "D102", "D103", "D104", "D105", "D106",
+]
+fixable = ["I", "D", "UP"]
+
+[tool.ruff.lint.isort]
+force-single-line = true
+
+[tool.ruff.lint.pydocstyle]
+convention = "numpy"
+
+[tool.poetry]
+name = "cp2077solver"
+version = "0.1.0"
+description = "Solver for the Breach Protocol hacking minigame in Cyberpunk 2077."
+authors = ["Yuriy Guts <yuriy.guts@gmail.com>"]
+license = "BSD-3-Clause"
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.12"
+
+[tool.poetry.group.dev]
+optional = true
+
+[tool.poetry.group.dev.dependencies]
+pre-commit = "^3.8.0"
+ruff = "^0.5.7"
+mypy = "^1.11.1"
+pytest = "^8.3.2"
+coverage = "^7.6.1"
+line-profiler = "^4.1.3"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
