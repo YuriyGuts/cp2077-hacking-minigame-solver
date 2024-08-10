@@ -8,9 +8,9 @@ in Cyberpunk 2077.
 
 ## Algorithm Overview
 
-The solver runs [Depth-first search (DFS)](https://en.wikipedia.org/wiki/Depth-first_search) on the
-code matrix. This allows arriving at solutions (albeit possibly suboptimal ones) in a matter of
-milliseconds in real-life cases, while having a small and almost fixed RAM footprint during search.
+The solver runs [depth-first search (DFS)](https://en.wikipedia.org/wiki/Depth-first_search) on the
+code matrix. This allows finding solutions (albeit possibly suboptimal ones) in milliseconds in
+real-life cases while having a small and almost fixed RAM footprint during the search.
 
 The algorithm maintains a search stack. At each iteration, it keeps track of the following state:
 * The cells used so far.
@@ -21,7 +21,7 @@ The algorithm maintains a search stack. At each iteration, it keeps track of the
 If the current path is hopeless (the remaining buffer length makes it impossible to complete
 all sequences), the solver abandons it early.
 
-If the total number of incomplete cells at the current iteration is 0, it means a solution is found.
+If the total number of incomplete cells at the current iteration is 0, then a solution is found.
 Otherwise, we add the unexplored neighbor cells to the search stack, adjusting or resetting the 
 numbers of incomplete cells depending on the cell value we pick next.
 
@@ -39,8 +39,14 @@ via [Poetry](https://python-poetry.org/):
 
 ```shell
 poetry install
+
+# Linux / macOS
 source .venv/bin/activate
+
+# Windows
+.venv\Scripts\activate
 ```
+
 
 ## Usage
 
@@ -90,6 +96,21 @@ Find any solution that works for the specified input file:
 python -m cp2077solver.cli game.txt
 ```
 
+Output:
+
+```text
+Solution: 7A BD E9 55 7A 55
+Path: (0 5) > (5 5) > (5 4) > (3 4) > (3 0) > (5 0)
+BD       55       BD       55       E9       7A (1)
+1C       E9       7A       7A       7A       7A
+1C       E9       55       7A       7A       7A
+7A (5)   1C       1C       55       55 (4)   E9
+1C       55       1C       55       1C       BD
+55 (6)   7A       E9       1C       E9 (3)   BD (2)
+
+Found 1 solutions in 0.000 seconds
+```
+
 Find all solutions that work for the specified input file, ranking them from shortest to longest:
 
 ```shell
@@ -129,7 +150,7 @@ spec = GameSpecification(
 # Find any solution that works.
 solutions = solve(spec)
 
-# Find all solutions
+# Find all solutions.
 solutions = solve(spec, strategy=SolutionStrategy.FIND_ALL_SOLUTIONS)
 ```
 
@@ -143,7 +164,11 @@ poetry install --with dev
 
 Enter the project shell:
 ```shell
+# Linux / macOS
 source .venv/bin/activate
+
+# Windows
+.venv\Scripts\activate
 ```
 
 Run linters:
@@ -151,7 +176,7 @@ Run linters:
 # Check for issues only.
 make lint
 
-# Check and fix the issues that are fixable.
+# Check and fix the fixable issues.
 make lint-fix
 ```
 
