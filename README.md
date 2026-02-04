@@ -35,10 +35,10 @@ higher-priority ones as those typically yield more valuable prizes.
 The project requires Python 3.10+ without any extra dependencies.
 
 The recommended way to work with the project is to install a Python virtual environment
-via [Poetry](https://python-poetry.org/):
+via [uv](https://docs.astral.sh/uv/):
 
 ```shell
-poetry install
+uv sync
 
 # Linux / macOS
 source .venv/bin/activate
@@ -159,7 +159,7 @@ solutions = solve(spec, strategy=SolutionStrategy.FIND_ALL_SOLUTIONS)
 Install the development dependencies:
 
 ```shell
-poetry install --with dev
+uv sync
 ```
 
 Enter the project shell:

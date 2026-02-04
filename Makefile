@@ -1,7 +1,5 @@
-MYPY_CACHE ?= .mypy_cache
-
 .PHONY: lint
-lint: mypy ruff
+lint: ty ruff
 
 .PHONY: lint-fix
 lint-fix: ruff-fix
@@ -10,9 +8,9 @@ lint-fix: ruff-fix
 test:
 	pytest .
 
-.PHONY: mypy
-mypy:
-	mypy --config-file pyproject.toml --cache-dir $(MYPY_CACHE) .
+.PHONY: ty
+ty:
+	ty check .
 
 .PHONY: ruff
 ruff:
